@@ -17,8 +17,8 @@
                 <a href="#"><li>Home</li></a>
                 <a href="/about"><li>About</li></a>
                 <a href="/contact"><li>Contact us</li></a>
-                {% if User.is_authenticated %}
-                <li class="profile"style= "list-style: None;"><img src="{% static 'images/user.png' %}"></li><span class="username"style= "text-transform: Uppercase;">{{UserInfo.username}}</span>
+                {% if user.is_authenticated %}
+                <li class="profile"style= "list-style: None;"><img src="{% static 'images/user.png' %}"></li><span class="username"style= "text-transform: Uppercase;">{{user.username}}</span>
                 <form action="/signout" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Logout">
