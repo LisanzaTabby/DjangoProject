@@ -17,13 +17,16 @@
                 <a href="#"><li>Home</li></a>
                 <a href="/about"><li>About</li></a>
                 <a href="/contact"><li>Contact us</li></a>
-                
-                <li class="profile"style= "list-style: None;"><img src="{% static 'images/user.png' %}"></li><span class="username"style= "text-transform: Uppercase;">{{user.username}}</span>
+                {% if User.is_authenticated %}
+                <li class="profile"style= "list-style: None;"><img src="{% static 'images/user.png' %}"></li><span class="username"style= "text-transform: Uppercase;">{{UserInfo.username}}</span>
                 <form action="/signout" method="post">
                     {% csrf_token %}
                     <input type="submit" value="Logout">
                 </form>
-                
+                {% else %}
+                <a href="signup"><li>signup</li></a>
+                <a href="signin"><li>Login</li></a>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -44,11 +47,11 @@
                 {% for user in users %}
                 <tbody>
                     <tr>
-                        <td>{{ userInfor.id }}</td>
-                        <td>{{ userInfor.username }} {{ userInfor.lastname }}</td>
-                        <td>{{ userInfor.email }}</td>
-                        <td>{{ userInfor.phone }}</td>
-                        <td>{{ userInfor.date }}</td>
+                        <td>{{ userInfo.id }}</td>
+                        <td>{{ userInfo.firstname }} {{ userInfor.lastname }}</td>
+                        <td>{{ userInfo.email }}</td>
+                        <td>{{ userInfo.phone }}</td>
+                        <td>{{ userInfo.date }}</td>
                         <td><a href="/edit">Edit</a>| <a href="/delete">Delete</a></td>
                     </tr>
                 </tbody>
