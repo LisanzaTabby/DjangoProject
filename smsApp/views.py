@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import UserInfo
 #from .forms import UserForm
 
 
@@ -42,8 +41,6 @@ def signup(request):
             return JsonResponse({'errors': errors}, status=400)
         user = User.objects.create(username=username, email=email, password=password)
 
-        user = UserInfo.objects.create(firstname= firstname,lastname=lastname, email=email, phone= phone)
-
         messages.success(request, 'Account created successfully. Please login.')
         return redirect('signin')
 
@@ -66,7 +63,7 @@ def signin(request):
 
 @login_required(login_url="/signin")
 def list_users(request):
-    users = UserInfo.objects.all()
+    users = User.objects.all()
     return render(request, 'users.html', {'users': users})
 
 @login_required(login_url="/signin")
