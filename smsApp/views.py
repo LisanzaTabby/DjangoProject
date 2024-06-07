@@ -69,14 +69,16 @@ def student(request):
 
     return render(request, 'student.html', {'student': student})
 
-def edit(request,pk):
+def edit(request, pk):
+
     student = Student.objects.get(id=pk)
     form = StudentForm(instance=student)
+
     if request.method == 'POST':
         form = StudentForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
-            return redirect('users')
+            return redirect('student')
         
     context = {'form':form}
     return render(request, 'student_form.html', context)
