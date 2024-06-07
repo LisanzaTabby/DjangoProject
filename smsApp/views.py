@@ -64,25 +64,23 @@ def signin(request):
 
 @login_required(login_url="/signin")'''
 
-def list_users(request, pk_test):
-    student = Student.objects.get(id=pk_test)
+def student(request):
+    student = Student.objects.all()
 
-    return render(request, 'users.html', {'student': student})
+    return render(request, 'student.html', {'student': student})
 
-@login_required(login_url="/signin")
 def edit(request,pk):
     student = Student.objects.get(id=pk)
     form = StudentForm(instance=student)
     if request.method == 'POST':
-        form = form(request.POST, instance=student)
+        form = StudentForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
             return redirect('users')
         
     context = {'form':form}
     return render(request, 'student_form.html', context)
-def student(request):
-    return render(request,'student.html')
+
 
 
 def signout(request):
