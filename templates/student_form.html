@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students Page</title>
+    <title>Students update Page</title>
     <link rel="stylesheet" href="{% static 'css/list_user.css' %}">
 </head>
 <body>
@@ -23,32 +23,14 @@
         </div>
     </div>
     <div class="main">
-        <h1>Users</h1>
+        <h1>students</h1>
         <div class="content">
-            <table>
-                <thead>
-                    <tr>
-                        <td>userID</td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>Phone</td>
-                        <td>Date_added</td>
-                        <td>Actions</td>
-                    </tr>
-                </thead>
-                {% for student in student %}
-                <tbody>
-                    <tr>
-                        <td>{{ student.id }}</td>
-                        <td>{{ student.firstname }} {{ ustudent.lastname }}</td>
-                        <td>{{ student.email }}</td>
-                        <td>{{ student.phone }}</td>
-                        <td>{{ student.date_added}}</td>
-                        <td><a href="{% url 'edit' %}">Edit</a>| <a href="/delete">Delete</a></td>
-                    </tr>
-                </tbody>
-                {% endfor %}
-            </table>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="Save">
+            </form>
+                
         </div>
     </div>
     <footer>

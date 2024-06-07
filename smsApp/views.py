@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-#from .forms import UserForm
+from .models import *
+from .forms import *
 
 
 User = get_user_model()
@@ -16,7 +17,7 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
-def signup(request):
+'''def signup(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         firstname = request.POST.get('firstname')
@@ -61,14 +62,25 @@ def signin(request):
 
     return render(request, 'signin.html')
 
-@login_required(login_url="/signin")
-def list_users(request):
-    users = User.objects.all()
-    return render(request, 'users.html', {'users': users})
+@login_required(login_url="/signin")'''
+
+def list_users(request, pk_test):
+    student = Student.objects.get(id=pk_test)
+
+    return render(request, 'users.html', {'student': student})
 
 @login_required(login_url="/signin")
-def edit(request):
-    return render(request, ('edit.html'))
+def edit(request,pk):
+    student = Student.objects.get(id=pk)
+    form = StudentForm(instance=student)
+    if request.method == 'POST':
+        form = form(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+        
+    context = {'form':form}
+    return render(request, 'student_form.html', context)
 def student(request):
     return render(request,'student.html')
 
